@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 
 class Node {
@@ -5,7 +7,7 @@ public:
     Node(int xIndex, int yIndex);
     ~Node();
 
-    enum EKind {NORMAL, VISITED, WALL};
+    enum EKind {NORMAL, VISITED, WALL, START, END};
 
     void SetXIndex(int xIndex) { mXIndex = xIndex; }
     int GetXIndex() { return mXIndex; }
