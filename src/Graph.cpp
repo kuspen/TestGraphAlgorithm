@@ -18,34 +18,31 @@ Graph::Graph(int xSize, int ySize, std::vector<std::vector<int> > graphInfo) : m
     for(int y = 0; y < ySize; y++) {
         for(int x = 0; x < xSize; x++) {
 
+            // Not Upper left
+            if(x != 0) {
+                if(graphInfo[y][x-1] == NODE_NORMAL) {
+                    GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x-1, y));
+                }
+            }
+            // Not Upper right
+            if(x != xSize - 1) {
+                if(graphInfo[y][x+1] == NODE_NORMAL) {
+                    GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x+1, y));
+                }
+            }
+            // Not Buttom left
             if(y != 0) {
-                // Not Upper left
-                if(x != 0) {
-                    if(graphInfo[y-1][x-1] == NODE_NORMAL) {
-                        GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x-1, y-1));
-                    }
-                }
-                // Not Upper right
-                else if(x != xSize - 1) {
-                    if(graphInfo[y-1][x+1] == NODE_NORMAL) {
-                        GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x+1, y-1));
-                    }
+                if(graphInfo[y-1][x] == NODE_NORMAL) {
+                    GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x, y-1));
                 }
             }
-            else if(y != ySize - 1) {
-                // Not Buttom left
-                if(x != 0) {
-                    if(graphInfo[y+1][x-1] == NODE_NORMAL) {
-                        GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x-1, y+1));
-                    }
-                }
-                // Not Button right
-                else if(x != xSize - 1) {
-                    if(graphInfo[y+1][x+1] == NODE_NORMAL) {
-                        GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x+1, y+1));
-                    }
+            // Not Button right
+            else if(y != xSize - 1) {
+                if(graphInfo[y+1][x] == NODE_NORMAL) {
+                    GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x, y+1));
                 }
             }
+            
         }
     }
 }
@@ -61,7 +58,7 @@ void Graph::SetStartNode(int xIndex, int yIndex) {
 
 void Graph::SetEndNode(int xIndex, int yIndex) {
     mEndNode = GetNodeByIndex(xIndex, yIndex);
-    mEndNode->SetKind(Node::START);
+    mEndNode->SetKind(Node::END);
 }
 
 void Graph::ShowGraph() {

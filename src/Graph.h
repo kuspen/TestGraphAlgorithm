@@ -14,6 +14,7 @@ public:
     void SetEndNode(int xIndex, int yIndex);
 
     void ShowGraph();
+    Node* GetNodeByIndex(int xIndex, int yIndex);
 
 private:
     int mXSize;
@@ -21,6 +22,4 @@ private:
     std::vector<Node*> mNodes;
     Node* mStartNode;
     Node* mEndNode;
-
-    Node* GetNodeByIndex(int xIndex, int yIndex);
 };
