@@ -5,6 +5,8 @@
 #include "../src/Graph.h"
 #include "../src/Node.h"
 
+#include "../src/DFS.h"
+
 const int g_xSize = 10;
 const int g_ySize = 10;
 
@@ -36,6 +38,9 @@ int main() {
     graph.SetStartNode(0, 9);
     graph.SetEndNode(6, 4);
     graph.ShowGraph();
+
+    DFS dfs(&graph);
+    dfs.solve();
 
 #if 0
     std::cout << "adjacent node\n";

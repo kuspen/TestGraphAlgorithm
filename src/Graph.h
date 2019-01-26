@@ -12,6 +12,8 @@ public:
     void SetNode(Node *node) { mNodes.push_back(node); }
     void SetStartNode(int xIndex, int yIndex);
     void SetEndNode(int xIndex, int yIndex);
+    Node* GetStartNode();
+    Node* GetEndNode();
 
     void ShowGraph();
     Node* GetNodeByIndex(int xIndex, int yIndex);

@@ -37,7 +37,7 @@ Graph::Graph(int xSize, int ySize, std::vector<std::vector<int> > graphInfo) : m
                 }
             }
             // Not Button right
-            else if(y != xSize - 1) {
+            if(y != xSize - 1) {
                 if(graphInfo[y+1][x] == NODE_NORMAL) {
                     GetNodeByIndex(x, y)->SetAdjacentNode(GetNodeByIndex(x, y+1));
                 }
@@ -59,6 +59,14 @@ void Graph::SetStartNode(int xIndex, int yIndex) {
 void Graph::SetEndNode(int xIndex, int yIndex) {
     mEndNode = GetNodeByIndex(xIndex, yIndex);
     mEndNode->SetKind(Node::END);
+}
+
+Node* Graph::GetStartNode() {
+    return mStartNode;
+}
+
+Node* Graph::GetEndNode() {
+    return mEndNode;
 }
 
 void Graph::ShowGraph() {
