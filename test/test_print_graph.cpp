@@ -39,9 +39,11 @@ int main() {
     graph.SetEndNode(6, 4);
     graph.ShowGraph();
 
-    DFS dfs(&graph);
-    dfs.solve();
+    DFS dfs1(graph);
+    dfs1.solve();
 
+    DFS dfs2(graph);
+    dfs2.solve();
 #if 0
     std::cout << "adjacent node\n";
     for(int y = 0; y < g_ySize; y++) {
