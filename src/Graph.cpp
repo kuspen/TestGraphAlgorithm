@@ -1,4 +1,5 @@
-#include "iostream"
+#include <iostream>
+#include <utility>
 
 #include "Graph.h"
 #include "define.h"
@@ -51,6 +52,38 @@ Graph::~Graph() {
 
 }
 
+Graph::Graph(const Graph &graph) : mXSize(graph.mXSize), mYSize(graph.mYSize) {
+
+    std::vector<std::vector<std::pair<int, int>>> adjacemtNodeInfo;
+    
+    for(auto itr=graph.mNodes.begin(); itr != graph.mNodes.end(); itr++) {
+        Node *node = new Node((*itr)->GetXIndex(), (*itr)->GetYIndex());
+        node->SetKind((*itr)->GetKind());
+        SetNode(node); 
+
+        std::vector<Node*> tempAdjacentNodes;
+        std::vector<std::pair<int, int>> tempAdjacentPair;
+        (*itr)->GetAdjacentNode(tempAdjacentNodes);
+        for(auto temp_itr = tempAdjacentNodes.begin(); temp_itr != tempAdjacentNodes.end(); temp_itr++) {
+            std::pair<int, int> pair = std::make_pair((*temp_itr)->GetXIndex(), (*temp_itr)->GetYIndex());
+            tempAdjacentPair.push_back(pair);
+        }
+        adjacemtNodeInfo.push_back(tempAdjacentPair);
+    }
+
+    auto adjaInfoItr = adjacemtNodeInfo.begin();
+    for(auto itr=mNodes.begin(); itr!=mNodes.end(); itr++) {
+        for(auto pairItr = (*adjaInfoItr).begin(); pairItr != (*adjaInfoItr).end(); pairItr++) {
+            (*itr)->SetAdjacentNode(GetNodeByIndex((*pairItr).first, (*pairItr).second));
+        }
+        adjaInfoItr++;
+    }
+
+    SetStartNode(graph.GetStartNode()->GetXIndex(), graph.GetStartNode()->GetYIndex());
+    SetEndNode(graph.GetEndNode()->GetXIndex(), graph.GetEndNode()->GetYIndex());
+
+}
+
 void Graph::SetStartNode(int xIndex, int yIndex) {
     mStartNode = GetNodeByIndex(xIndex, yIndex);
     mStartNode->SetKind(Node::START);
@@ -61,11 +94,11 @@ void Graph::SetEndNode(int xIndex, int yIndex) {
     mEndNode->SetKind(Node::END);
 }
 
-Node* Graph::GetStartNode() {
+Node* Graph::GetStartNode() const {
     return mStartNode;
 }
 
-Node* Graph::GetEndNode() {
+Node* Graph::GetEndNode() const {
     return mEndNode;
 }
 
@@ -73,11 +106,11 @@ void Graph::ShowGraph() {
     for(int y = 0; y < mYSize; y++) {
         for(int x = 0; x < mXSize; x++) {
             Node::EKind kind = GetNodeByIndex(x, y)->GetKind();
-            if(kind == Node::NORMAL)       std::cout<<".";
-            else if(kind == Node::VISITED) std::cout<<"*";
-            else if(kind == Node::WALL)    std::cout<<"#";
-            else if(kind == Node::START)   std::cout<<"s";
-            else if(kind == Node::END)     std::cout<<"e";
+            if(kind == Node::NORMAL || kind == Node::CHECKED) std::cout<<".";
+            else if(kind == Node::VISITED)                    std::cout<<"*";
+            else if(kind == Node::WALL)                       std::cout<<"#";
+            else if(kind == Node::START)                      std::cout<<"s";
+            else if(kind == Node::END)                        std::cout<<"e";
         }
         std::cout << "\n";
     }

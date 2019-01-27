@@ -1,17 +1,17 @@
 #include <iostream>
-#include <stack>
+#include <queue>
 #include <unistd.h>
 
-#include "DFS.h"
+#include "BFS.h"
 #include "Node.h"
 
 
-DFS::DFS(Graph graph) : mGraph(graph) {}
-DFS::~DFS() {}
+BFS::BFS(Graph graph) : mGraph(graph) {}
+BFS::~BFS() {}
 
-void DFS::solve() {
+void BFS::solve() {
 
-    std::stack<Node*> nodes;
+    std::queue<Node*> nodes;
     nodes.push(mGraph.GetStartNode());
 
     while(1) {
@@ -21,7 +21,7 @@ void DFS::solve() {
             return;            
         }
 
-        Node *node = nodes.top();
+        Node *node = nodes.front();
         nodes.pop();
         node->SetKind(Node::VISITED);
 

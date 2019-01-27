@@ -1,10 +1,10 @@
 #pragma once
 #include "Graph.h"
 
-class DFS {
+class BFS {
 public:
-    DFS(Graph graph);
-    ~DFS();
+    BFS(Graph graph);
+    ~BFS();
 
     void solve();
 

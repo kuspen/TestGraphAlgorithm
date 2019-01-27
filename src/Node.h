@@ -8,7 +8,7 @@ public:
     Node(int xIndex, int yIndex);
     ~Node();
 
-    enum EKind {NORMAL, VISITED, WALL, START, END};
+    enum EKind {NORMAL, VISITED, CHECKED, WALL, START, END};
 
     void SetXIndex(int xIndex) { mXIndex = xIndex; }
     int GetXIndex() { return mXIndex; }
