@@ -6,6 +6,7 @@
 #include "../src/Node.h"
 
 #include "../src/DFS.h"
+#include "../src/BFS.h"
 
 const int g_xSize = 10;
 const int g_ySize = 10;
@@ -39,11 +40,11 @@ int main() {
     graph.SetEndNode(6, 4);
     graph.ShowGraph();
 
-    DFS dfs1(graph);
-    dfs1.solve();
+    DFS dfs(graph);
+    dfs.solve();
 
-    DFS dfs2(graph);
-    dfs2.solve();
+    BFS bfs(graph);
+    bfs.solve();
 #if 0
     std::cout << "adjacent node\n";
     for(int y = 0; y < g_ySize; y++) {
